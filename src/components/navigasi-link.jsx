@@ -9,12 +9,12 @@ function NavigasiLink() {
                 </NavLink>
             </li>
             <li className="font-bold border-blue-400 flex">
-                <NavLink to="/done" className={({ isActive }) => isActive ? "text-blue-400 p-2" : "p-2  opacity-40"}>
+                <NavLink to="/run" className={({ isActive }) => isActive ? "text-blue-400 p-2" : "p-2  opacity-40"}>
                     Berjalan
                 </NavLink>
             </li>
             <li className="font-bold border-blue-400 flex">
-                <NavLink to="/run" className={({ isActive }) => isActive ? "text-blue-400 p-2" : "p-2  opacity-40"}>
+                <NavLink to="/done" className={({ isActive }) => isActive ? "text-blue-400 p-2" : "p-2  opacity-40"}>
                     Selesai
                 </NavLink>
             </li>
