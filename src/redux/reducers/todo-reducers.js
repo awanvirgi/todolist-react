@@ -8,7 +8,7 @@ const initialValue = {
         {
             id: 1,
             value: "Project Akhir",
-            finish: true
+            finish: false
         },
     ],
     isLoading: true
@@ -27,10 +27,22 @@ function todoReducer(state = initialValue, action) {
                 todos: clone
             }
         case "DELETE_TODO":
-            let deleteTodos = state.todos.filter((todos)=>todos.id != action.payload)
+            let deleteTodos = state.todos.filter((todos) => todos.id != action.payload)
             console.log("Success")
             return {
-                todos : deleteTodos
+                todos: deleteTodos
+            }
+        case "FINISH_TODO":
+            let finishTodos = state.todos.map((item)=>{
+                if (item.id === action.payload) {
+                    if(item.finish===true)
+                    return { ...item, finish: false };
+                    return { ...item, finish: true };
+                }
+                return item
+            })
+            return{
+                todos:finishTodos
             }
         default: return state
     }
@@ -44,6 +56,13 @@ export function addTodo(data) {
 export function deleteTodo(id) {
     return {
         type: "DELETE_TODO",
+        payload: id
+    }
+}
+
+export function finishTodo(id) {
+    return {
+        type: "FINISH_TODO",
         payload: id
     }
 }
