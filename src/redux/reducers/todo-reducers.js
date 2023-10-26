@@ -1,17 +1,5 @@
 const initialValue = {
-    todos: [
-        {
-            id: 0,
-            value: "Pekerjaan Tugas",
-            finish: false
-        },
-        {
-            id: 1,
-            value: "Project Akhir",
-            finish: false
-        },
-    ],
-    isLoading: true
+    todos: []
 }
 
 function todoReducer(state = initialValue, action) {
@@ -28,11 +16,10 @@ function todoReducer(state = initialValue, action) {
             }
         case "DELETE_TODO":
             let deleteTodos = state.todos.filter((todos) => todos.id != action.payload)
-            console.log("Success")
             return {
                 todos: deleteTodos
             }
-        case "FINISH_TODO":
+        case "SWITCH_TODO":
             let finishTodos = state.todos.map((item)=>{
                 if (item.id === action.payload) {
                     if(item.finish===true)
@@ -44,6 +31,8 @@ function todoReducer(state = initialValue, action) {
             return{
                 todos:finishTodos
             }
+        case "DELETE_TODO":
+            let donetodos = state.todos.filter((todos) => todos.false != action.payload)
         default: return state
     }
 }
@@ -59,10 +48,15 @@ export function deleteTodo(id) {
         payload: id
     }
 }
-
-export function finishTodo(id) {
+export function switchTodo(id) {
     return {
-        type: "FINISH_TODO",
+        type: "SWITCH_TODO",
+        payload: id
+    }
+}
+export function filterTodo(id) {
+    return {
+        type: "FILTER_TODO",
         payload: id
     }
 }

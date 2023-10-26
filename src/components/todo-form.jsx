@@ -13,7 +13,6 @@ function Formtodo() {
             value: input,
             finish: false
         }
-        console.log(newToDO)
         dispatch(addTodo(newToDO))
 
     }
