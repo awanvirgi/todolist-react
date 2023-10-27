@@ -1,8 +1,8 @@
 const initialValue = {
     todos: [],
-    editprops:{
-        id:0,
-        value:""
+    editprops: {
+        id: 0,
+        value: ""
     }
 }
 
@@ -14,56 +14,61 @@ function todoReducer(state = initialValue, action) {
                 value: action.payload.value,
                 finish: action.payload.finish
             }
-            const clone = [...state.todos, newTodos]
+
             return {
-                todos: clone,
-                editprops:state.editprops
+                ...state,
+                todos: [...state.todos, newTodos],
             }
+            
         case "DELETE_TODO":
-            let deleteTodos = state.todos.filter((todos) => todos.id != action.payload)
+            let deleteTodos = state.todos.filter((todos) => todos.id !== action.payload)
             return {
+                ...state,
                 todos: deleteTodos,
-                editprops:state.editprops
 
             }
+
         case "SWITCH_TODO":
-            let finishTodos = state.todos.map((item)=>{
+            let finishTodos = state.todos.map((item) => {
                 if (item.id === action.payload) {
-                    if(item.finish===true)
-                    return { ...item, finish: false };
+                    if (item.finish === true)
+                        return { ...item, finish: false };
                     return { ...item, finish: true };
                 }
                 return item
             })
-            return{
-                todos:finishTodos,
-                editprops:state.editprops
+            return {
+                ...state,
+                todos: finishTodos,
             }
+
         case "GET_TODO":
             let editValue = {
-                id:action.payload.id,
-                value:action.payload.value
+                id: action.payload.id,
+                value: action.payload.value
             }
             return {
-                todos:state.todos,
-                editprops:editValue
+                ...state,
+                editprops: editValue
             }
+
         case "EDIT_TODO":
-            let editTodos = state.todos.map((item)=>{
+            let editTodos = state.todos.map((item) => {
                 if (item.id === action.payload.id) {
                     return { ...item, value: action.payload.value };
                 }
                 return item
             })
-
-            return{
-                todos:editTodos,
-                editprops:{
-                    id:0,
-                    value:""
+            return {
+                todos: editTodos,
+                editprops: {
+                    id: 0,
+                    value: ""
                 }
             }
-        default: return state
+
+        default:
+            return state
     }
 }
 export function addTodo(data) {

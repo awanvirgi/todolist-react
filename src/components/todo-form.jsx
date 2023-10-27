@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect,useState  } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo,postEditTodo } from "../redux/reducers/todo-reducers"
 
@@ -19,7 +18,6 @@ function Formtodo() {
                 value: input,
                 finish: false
             }
-            
             dispatch(addTodo(newTodo))
         } else {
             let EditTodo = {
@@ -32,12 +30,12 @@ function Formtodo() {
     }
     return (
         <div className="mb-10">
-            <form className="flex gap-10">
-                <input className="bg-transparent border-b-4 border-blue-400 outline-none text-white grow"
+            <form className="flex gap-5 items-end">
+                <input className="bg-transparent border-b-4 border-blue-400 outline-none text-white h-min grow pb-1 sm:text-lg"
                     placeholder="Masukan Kegiatan"
                     type="text"
                     value={input} onChange={(e) => setInput(e.target.value)} />
-                <button className="bg-blue-400 rounded p-2 font-bold text-white" onClick={handleInput}>{editprops.value?`Edit Todo`:"Tambah +"} </button>
+                <button className="bg-blue-400 rounded px-1 py-4 font-bold text-white" onClick={handleInput}>{editprops.value?"Edit Todo":"Tambah +"} </button>
             </form>
         </div>
     )
