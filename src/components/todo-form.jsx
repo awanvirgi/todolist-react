@@ -1,20 +1,34 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/reducers/todo-reducers"
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo,postEditTodo } from "../redux/reducers/todo-reducers"
 
 function Formtodo() {
     const dispatch = useDispatch();
-    const [ input, setInput ] = useState("")
+    const [input, setInput] = useState("")
+    const { editprops } = useSelector((state) => state.todo)
+
+    useEffect(() => {
+        setInput(editprops.value)
+    }, [editprops])
 
     const handleInput = (event) => {
         event.preventDefault()
-        let newToDO = {
-            value: input,
-            finish: false
+        if (editprops.value==="") {
+            let newTodo = {
+                value: input,
+                finish: false
+            }
+            
+            dispatch(addTodo(newTodo))
+        } else {
+            let EditTodo = {
+                id:editprops.id,
+                value:input
+            }
+            dispatch(postEditTodo(EditTodo))
         }
-        dispatch(addTodo(newToDO))
-
+        setInput("")
     }
     return (
         <div className="mb-10">
@@ -23,7 +37,7 @@ function Formtodo() {
                     placeholder="Masukan Kegiatan"
                     type="text"
                     value={input} onChange={(e) => setInput(e.target.value)} />
-                <button className="bg-blue-400 rounded p-2 font-bold text-white" onClick={handleInput}>Tambah +</button>
+                <button className="bg-blue-400 rounded p-2 font-bold text-white" onClick={handleInput}>{editprops.value?`Edit Todo`:"Tambah +"} </button>
             </form>
         </div>
     )

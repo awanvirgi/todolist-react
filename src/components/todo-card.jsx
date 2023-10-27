@@ -1,8 +1,10 @@
 import edit from '../assets/edit.svg'
 import delet from '../assets/delet.svg'
 import { useDispatch } from 'react-redux'
-import { deleteTodo,switchTodo } from "../redux/reducers/todo-reducers"
+import { deleteTodo,switchTodo,getEditTodo } from "../redux/reducers/todo-reducers"
+import { useNavigate } from 'react-router-dom'
 function Card(props) {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const handledelet = (event) => {
         event.preventDefault()
@@ -11,7 +13,15 @@ function Card(props) {
     const handlefinish = (event)=>{
         event.preventDefault()
         dispatch(switchTodo(props.id))
-
+    }
+    const handleedit = (event) =>{
+        event.preventDefault()
+        console.log(props)
+        let data = {
+            id:props.id,
+            value:props.value
+        }
+        dispatch(getEditTodo(data))
     }
     return (
         <div className={(!props.status) ? "flex border-2 border-blue-400" : "flex border-2 border-blue-400 bg-slate-500 opacity-40"}>
@@ -22,7 +32,7 @@ function Card(props) {
 
             {!props.status ? (
                 <div className='flex'>
-                    <button className='bg-green-600 flex w-12 h-12 p-2'>
+                    <button className='bg-green-600 flex w-12 h-12 p-2' onClick={handleedit}>
                         <img className='flex w-100 h-auto object-cover' src={edit} alt="Edit" />
                     </button>
                     <button className='bg-red-600 flex w-12 h-12 p-2' onClick={handledelet}>

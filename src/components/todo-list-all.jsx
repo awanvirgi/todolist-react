@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 function TodolistAll() {
     const { todos } = useSelector((state) => state.todo)
+    console.log(todos)
     return (
         <div className="p-3 flex flex-col gap-2 border-2 border-blue-400">
             {todos.length!=0?

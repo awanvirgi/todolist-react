@@ -1,5 +1,9 @@
 const initialValue = {
-    todos: []
+    todos: [],
+    editprops:{
+        id:0,
+        value:""
+    }
 }
 
 function todoReducer(state = initialValue, action) {
@@ -12,12 +16,15 @@ function todoReducer(state = initialValue, action) {
             }
             const clone = [...state.todos, newTodos]
             return {
-                todos: clone
+                todos: clone,
+                editprops:state.editprops
             }
         case "DELETE_TODO":
             let deleteTodos = state.todos.filter((todos) => todos.id != action.payload)
             return {
-                todos: deleteTodos
+                todos: deleteTodos,
+                editprops:state.editprops
+
             }
         case "SWITCH_TODO":
             let finishTodos = state.todos.map((item)=>{
@@ -29,10 +36,33 @@ function todoReducer(state = initialValue, action) {
                 return item
             })
             return{
-                todos:finishTodos
+                todos:finishTodos,
+                editprops:state.editprops
             }
-        case "DELETE_TODO":
-            let donetodos = state.todos.filter((todos) => todos.false != action.payload)
+        case "GET_TODO":
+            let editValue = {
+                id:action.payload.id,
+                value:action.payload.value
+            }
+            return {
+                todos:state.todos,
+                editprops:editValue
+            }
+        case "EDIT_TODO":
+            let editTodos = state.todos.map((item)=>{
+                if (item.id === action.payload.id) {
+                    return { ...item, value: action.payload.value };
+                }
+                return item
+            })
+
+            return{
+                todos:editTodos,
+                editprops:{
+                    id:0,
+                    value:""
+                }
+            }
         default: return state
     }
 }
@@ -58,6 +88,18 @@ export function filterTodo(id) {
     return {
         type: "FILTER_TODO",
         payload: id
+    }
+}
+export function getEditTodo(props) {
+    return {
+        type: "GET_TODO",
+        payload: props
+    }
+}
+export function postEditTodo(props) {
+    return {
+        type: "EDIT_TODO",
+        payload: props
     }
 }
 
