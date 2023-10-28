@@ -13,6 +13,8 @@ function Formtodo() {
 
     const handleInput = (event) => {
         event.preventDefault()
+        let regex = /[%$^@]/;
+        if(!input || regex.test(input))return alert("Mohon isi form dengan benar")
         if (editprops.value==="") {
             let newTodo = {
                 value: input,
