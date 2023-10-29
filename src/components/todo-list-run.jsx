@@ -9,15 +9,6 @@ function TodolistRun() {
     useEffect(() => {
         getTodo()
     }, [todos])
-    const navigate = useNavigate();
-
-    const redirectToHome = () => {
-        navigate("/");
-    };
-
-    useEffect(() => {
-        redirectToHome()
-    }, [])
 
     function getTodo() {
         const filterTodos = todos.filter((item) => item.finish == false)

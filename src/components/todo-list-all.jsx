@@ -1,17 +1,9 @@
 import Card from "./todo-card"
 import { useSelector } from "react-redux"
-import { useEffect } from "react";
 
 function TodolistAll() {
     const { todos } = useSelector((state) => state.todo)
-    const navigate = useNavigate();
-    const redirectToHome = () => {
-        navigate("/");
-    };
 
-    useEffect(() => {
-        redirectToHome()
-    }, [])
     return (
         <div className="p-3 flex flex-col gap-2 border-2 border-blue-400 sm:text-lg">
             {todos.length != 0 ?

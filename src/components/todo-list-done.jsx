@@ -6,15 +6,6 @@ import { useEffect, useState } from "react"
 function TodolistDone() {
     const { todos } = useSelector((state) => state.todo)
     const [DoneTodo, setDoneTodo] = useState([])
-    const navigate = useNavigate();
-
-    const redirectToHome = () => {
-        navigate("/");
-    };
-
-    useEffect(() => {
-        redirectToHome()
-    }, [])
 
     useEffect(() => {
         getTodo()
