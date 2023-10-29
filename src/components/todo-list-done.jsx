@@ -1,14 +1,24 @@
 import Card from "./todo-card"
-import { useSelector} from "react-redux"
-import { useEffect,useState } from "react"
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+
 
 function TodolistDone() {
     const { todos } = useSelector((state) => state.todo)
     const [DoneTodo, setDoneTodo] = useState([])
+    const navigate = useNavigate();
 
-    useEffect(()=>{
+    const redirectToHome = () => {
+        navigate("/");
+    };
+
+    useEffect(() => {
+        redirectToHome()
+    }, [])
+
+    useEffect(() => {
         getTodo()
-    },[todos])
+    }, [todos])
 
     function getTodo() {
         const filterTodos = todos.filter((item) => item.finish == true)
@@ -21,7 +31,7 @@ function TodolistDone() {
                 DoneTodo.map((item) => (
                     <Card key={item.id} value={item.value} status={item.finish} id={item.id} />
                 )) : (
-                    <div className="text-center">Hayoo belum ada Tugas Yang Selesai <br/>Jangan Lupa yak Kerjakan Tugasnya!!</div>
+                    <div className="text-center">Hayoo belum ada Tugas Yang Selesai <br />Jangan Lupa yak Kerjakan Tugasnya!!</div>
                 )
 
             }

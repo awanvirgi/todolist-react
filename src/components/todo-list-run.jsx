@@ -1,14 +1,23 @@
 import Card from "./todo-card"
-import { useSelector} from "react-redux"
-import { useEffect,useState } from "react"
+import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 
 function TodolistRun() {
     const { todos } = useSelector((state) => state.todo)
     const [RunTodo, setRunTodo] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         getTodo()
-    },[todos])
+    }, [todos])
+    const navigate = useNavigate();
+
+    const redirectToHome = () => {
+        navigate("/");
+    };
+
+    useEffect(() => {
+        redirectToHome()
+    }, [])
 
     function getTodo() {
         const filterTodos = todos.filter((item) => item.finish == false)
